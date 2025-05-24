@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "exports": {
-    ".": "./src/db.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "generate": "npx prisma generate",
