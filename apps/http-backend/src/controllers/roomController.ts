@@ -33,26 +33,25 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-export const getAllChatsByRoomId = async (
+export const getRoomIdBySlug = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const roomId = req.params.roomId;
-    if (!roomId) throw new Error("Got no roomId to fetch data for");
+    const slug = req.params.slug;
 
-    const chats = await prisma.chat.findMany({
+    if (!slug) throw new Error("Invaild input format");
+
+    const room = await prisma.room.findUnique({
       where: {
-        roomId,
+        slug,
       },
-      take: 50,
-      orderBy: {
-        id: "desc",
+      select: {
+        id: true,
       },
     });
 
-    if (!chats) throw new Error("Invalid roomId");
-    return res.json({ chats });
+    return res.json({ roomId: room?.id });
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === "P2002") {

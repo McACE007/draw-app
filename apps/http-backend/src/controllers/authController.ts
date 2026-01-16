@@ -32,6 +32,7 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
 
 export const signin = async (req: Request, res: Response): Promise<any> => {
   try {
+    console.log(req.body);
     const parsedBody = LoginUserRequest.safeParse(req.body);
 
     if (!parsedBody.success) throw new Error("Invaild input format");

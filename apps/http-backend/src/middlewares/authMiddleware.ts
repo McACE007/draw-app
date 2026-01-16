@@ -1,6 +1,6 @@
 import { JWT_SECRET } from "@repo/backend-common/constants";
 import { NextFunction, Request, Response } from "express";
-import jwt, { Secret } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 declare global {
   namespace Express {
@@ -20,7 +20,6 @@ export const authMiddleware = async (
     res.status(401).json({ message: "No token, authentication denied" });
     return;
   }
-
   try {
     const token = authHeader?.split(" ").at(1) || "";
     const decoded = jwt.verify(token, JWT_SECRET) as {
